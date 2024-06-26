@@ -94,6 +94,16 @@ PolyZone: https://github.com/mkafrin/PolyZone
 ### Останній крок.
 
 <span style="color: blue;">Перезавантажте сервер.</span>
+[Синій текст]{style="color: blue;"}
+
+<style>
+.blue-text {
+    color: blue;
+}
+</style>
+
+<span class="blue-text">Синій текст</span>
+🟦 Синій текст
 
 
 Команди:
