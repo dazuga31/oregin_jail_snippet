@@ -4,4 +4,11 @@ For further instructions, use:
 
 Para obtener más instrucciones, utilice:
 
-[Синій текст](# "color: blue;")
+$${\color{blue} \text{Синій текст}}$$
+
+```diff
++ Синій текст
+
+```
+
+<span class="blue-text">Синій текст</span>
