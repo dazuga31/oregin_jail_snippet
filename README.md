@@ -4,7 +4,8 @@
 
 ## Крок 1:
 
-### Скачати аргхів з необхдними файлами з GitHub [Завантажитиє📦]([https://example.com](https://github.com/dazuga31/oregin_jail_snippet.git))
+### Скачати аргхів з необхдними файлами з GitHub 
+[Завантажитиє📦]([https://example.com](https://github.com/dazuga31/oregin_jail_snippet.git))
 
 ## Крок 2:
 
