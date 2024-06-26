@@ -4,7 +4,7 @@
 
 ## Крок 1:
 
-### Скачати аргхів з необхдними файлами з GitHub [Завантажити]([https://example.com](https://github.com/dazuga31/oregin_jail_snippet.git))
+### Скачати аргхів з необхдними файлами з GitHub [Завантажитиє📦]([https://example.com](https://github.com/dazuga31/oregin_jail_snippet.git))
 
 ## Крок 2:
 
@@ -23,7 +23,7 @@ origen_police\custom\client\сl_marko_police.lua
 origen_police\config\marko_federal.lua
 
 
-## Веб інтерфейс
+## Веб інтерфейс 🌐
 
 ### Перейдіть за шляхом origen_police\html\js\police.js.
 
@@ -36,15 +36,59 @@ origen_police\config\marko_federal.lua
 В кінці файлу після функції AnkleTase розмістіть нову функцію:
 
 --- тут буде код функції (він надто довгий)
+```
+policeFunctions.MarkoPreJailCheck = function(parentElement) {
+    const citizenID = parentElement.find('.input-id-condena').val();
+    const mesesCondena = parentElement.find('.input-meses-condena').val();
+    const peligro = parentElement.find('.input-p-condena').val();
+    
+    console.log('MarkoPreJailCheck called with:', { citizenID, mesesCondena, peligro });
 
+    if (citizenID && mesesCondena && peligro) {
+        console.log('Sending request to client script with:', { citizenID, mesesCondena, peligro });
+        $.post('http://origen_police/MarkoPreJailCheck', JSON.stringify({
+            citizenID: citizenID,
+            mesesCondena: mesesCondena,
+            peligro: peligro
+        }), function(result) {
+            console.log('Received callback result from client script:', result.result, result.reason);
+            if (result.result) {
+                console.log('Passing to addCondena with:', { citizenID, mesesCondena, peligro });
+                policeFunctions.addCondena(parentElement);
+            } else {
+                console.log('Pre-check failed, notifying user');
+                if (result.reason === "Час арешту не може перевищувати 60 днів") {
+                    sendNotification('error', 'Час арешту не може перевищувати 60 днів');
+                } else if (result.reason === "Громадянин занадто далеко від вас!") {
+                    sendNotification('error', 'Громадянин занадто далеко від вас!');
+                } else if (result.reason === "Ви занадто далеко до місця ув'язнення!") {
+                    sendNotification('error', 'Ви занадто далеко до місця ув\'язнення!');
+                } else if (result.reason === "Ув'язнений занадто далеко до місця ув'язнення!") {
+                    sendNotification('error', 'Ув\'язнений занадто далеко до місця ув\'язнення!');
+                } else if (result.reason === "Ви не можете арештувати самого себе!") {
+                    sendNotification('error', 'Ви не можете арештувати самого себе!');
+                } else {
+                    sendNotification('error', result.reason || 'Попередня перевірка не вдалася');
+                }
+            }
+        });
+    } else {
+        console.log('All fields are required');
+        sendNotification('error', 'Усі поля мають бути заповнені');
+    }
+};
+
+
+```
 
 ## Крок 3 Встановіть залежності.
 
-PolyZone: https://github.com/mkafrin/PolyZone
+PolyZone: [Завантажитиє📦](https://github.com/mkafrin/PolyZone)
+
 
 ## Крок 4: Налаштування:
 
-### Перейдіть до файлу origen_police\fxmanifest.lua
+### Перейдіть до файлу **origen_police\fxmanifest.lua**
 
 Додайте декілька нових рядків в client_scripts (Не забудтьте додати кому , після "radio/client/**/*.lua")
 
@@ -62,7 +106,7 @@ PolyZone: https://github.com/mkafrin/PolyZone
 
 
 
-### Перейдіть до файлу origen_police\config\marko_federal.lua
+### Перейдіть до файлу **origen_police\config\marko_federal.lua**
 
 Встановіть власний вебхук для отримання детальних повідомлень аршету.
 
